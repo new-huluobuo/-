@@ -38,8 +38,7 @@ ALLOWED_EXTENSIONS = {
 
 # 文件类型分类
 FILE_CATEGORIES = {
-    '文档': ['txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
-    '学习资料': ['txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
+    '学习文件': ['txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
     '图片': ['png', 'jpg', 'jpeg', 'gif'],
     '音频': ['mp3'],
     '视频': ['mp4'],
@@ -171,6 +170,10 @@ def add_message():
         save_messages()
     
     return redirect(url_for('message_board'))
+
+@app.route('/more')
+def more():
+    return render_template('more.html')
 
 if __name__ == '__main__':
     # 确保上传文件夹存在
