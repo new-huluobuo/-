@@ -7,6 +7,7 @@ import mimetypes
 
 
 os.system('python -m pip install -r requirements.txt')
+os.system('start http://10.189.221.71:8000')
 
 app = Flask(__name__, template_folder='web')
 
@@ -174,6 +175,12 @@ def add_message():
 @app.route('/more')
 def more():
     return render_template('more.html')
+
+@app.route('/static/img/favicon.ico')
+def favicon():
+    return send_from_directory('static', 'img/favicon.ico')
+
+
 
 if __name__ == '__main__':
     # 确保上传文件夹存在

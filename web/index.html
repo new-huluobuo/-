@@ -2,26 +2,41 @@
 <html>
 <head>
     <title>七年级社区</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --navbar-bg: #2c3e50;
+            --navbar-text: #ecf0f1;
+            --navbar-link: #bdc3c7;
+            --border-color: #eee;
+            --hover-bg: #f8f9fa;
+        }
+
+
         body {
-            background-color: #f8f9fa;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
         .navbar {
-            background-color: #2c3e50;
+            background-color: var(--navbar-bg);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .navbar-brand {
-            color: #ecf0f1 !important;
+            color: var(--navbar-text) !important;
             font-weight: bold;
         }
         .nav-link {
-            color: #bdc3c7 !important;
+            color: var(--navbar-link) !important;
             transition: color 0.3s;
         }
         .nav-link:hover {
-            color: #ecf0f1 !important;
+            color: var(--navbar-text) !important;
         }
         .main-container {
             max-width: 1000px;
@@ -29,10 +44,12 @@
             padding: 0 1rem;
         }
         .card {
+            background-color: var(--card-bg);
             border: none;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
+            transition: background-color 0.3s;
         }
         .welcome-section {
             text-align: center;
@@ -54,6 +71,18 @@
         .feature-card:hover {
             transform: translateY(-5px);
         }
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--navbar-link);
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+        .theme-toggle:hover {
+            color: var(--navbar-text);
+        }
     </style>
 </head>
 <body>
@@ -64,12 +93,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link active" href="/">首页</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/message-board">留言板</a>
+                        <a class="nav-link" href="/message-board">论坛</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/files">学习资源</a>
@@ -81,6 +110,9 @@
                         <a class="nav-link" href="/more">更多网站</a>
                     </li>
                 </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -89,11 +121,7 @@
         <div class="welcome-section">
             <h1 class="welcome-title">欢迎来到七年级社区</h1>
             <p class="welcome-text">这是一个充满活力的学生社区，让我们一起分享、交流、成长</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="/files" class="btn btn-outline-primary btn-lg">浏览学习资源</a>
-            </div>
         </div>
-
         <div class="row">
             <div class="col-md-4">
                 <div class="card feature-card">
@@ -123,5 +151,29 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // 从localStorage获取主题设置
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+        
+        function updateIcon(theme) {
+            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    </script>
 </body>
 </html> 
