@@ -6,8 +6,7 @@ import humanize
 import mimetypes
 
 
-os.system('python -m pip install -r requirements.txt')
-os.system('start http://10.189.221.71:8000')
+os.system('start http://127.0.0.1:8000')
 
 app = Flask(__name__, template_folder='web')
 
